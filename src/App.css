@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  background-color: #262d3b;
 }
 
 .App-logo {
@@ -35,4 +36,33 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.Pointer {
+  color: white;
+  font-size: 1.8rem;
+  font-weight: bold;
+  left: 0%;
+  top: 0%;
+  height: 40px;
+  width: 20%;
+  background: tomato;
+  position: relative;
+}
+
+.Pointer:after {
+  content: "";
+  position: absolute;
+  right: -20px;
+  bottom: 0;
+  width: 0;
+  height: 0;
+  border-left: 20px solid tomato;
+  border-top: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+}
+
+.componentBody {
+  margin-top: -20px;
+  padding: 40px;
 }
