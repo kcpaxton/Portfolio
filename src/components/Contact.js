@@ -46,58 +46,60 @@ const Contact = () => {
   }
 
   return (
-    <VizSensor
-      partialVisibility
-      onChange={(isVisible) => setVisible(!imageVisible)}
-    >
-      <div style={{ marginTop: "3rem" }}>
-        <animated.div style={sectionFlag} className="Pointer">
-          Contact Me
-        </animated.div>
-        <div style={body} className="componentBody">
-          <div style={container}>
-            <div>
-              <h3>Get in contact with me!</h3>
-            </div>
-            <div className="alert" style={alert}>
-              Your message has been sent
-            </div>
-            <div style={contactMe}>
-              <form id="contactForm">
-                <input
-                  type="text"
-                  name="name"
-                  id="name"
-                  placeholder="Name"
-                  style={inputFields}
-                  required
-                ></input>
-                <input
-                  type="email"
-                  name="email"
-                  id="email"
-                  placeholder="Email"
-                  style={inputFields}
-                  required
-                ></input>
-                <textarea
-                  rows="5"
-                  name="message"
-                  id="message"
-                  placeholder="Your message"
-                  style={inputFields}
-                ></textarea>
-                <p>
-                  <button style={submitBtn} onClick={handleClick}>
-                    Send message
-                  </button>
-                </p>
-              </form>
+    <section id="Contact">
+      <VizSensor
+        partialVisibility
+        onChange={(isVisible) => setVisible(!imageVisible)}
+      >
+        <div style={{ marginTop: "3rem" }}>
+          <animated.div style={sectionFlag} className="Pointer">
+            Contact Me
+          </animated.div>
+          <div style={body} className="componentBody">
+            <div style={container}>
+              <div>
+                <h3>Get in contact with me!</h3>
+              </div>
+              <div className="alert" style={alert}>
+                Your message has been sent
+              </div>
+              <div style={contactMe}>
+                <form id="contactForm">
+                  <input
+                    type="text"
+                    name="name"
+                    id="name"
+                    placeholder="Name"
+                    style={inputFields}
+                    required
+                  ></input>
+                  <input
+                    type="email"
+                    name="email"
+                    id="email"
+                    placeholder="Email"
+                    style={inputFields}
+                    required
+                  ></input>
+                  <textarea
+                    rows="5"
+                    name="message"
+                    id="message"
+                    placeholder="Your message"
+                    style={inputFields}
+                  ></textarea>
+                  <p>
+                    <button style={submitBtn} onClick={handleClick}>
+                      Send message
+                    </button>
+                  </p>
+                </form>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </VizSensor>
+      </VizSensor>
+    </section>
   );
 };
 
@@ -121,14 +123,6 @@ const container = {
   alignItems: "center",
   flexDirection: "column",
   width: "60%",
-};
-
-const title = {
-  borderBottomWidth: "4px",
-  borderBottomStyle: "solid",
-  padding: "20px",
-  marginBottom: "0px",
-  fontSize: "3em",
 };
 
 const alert = {
@@ -165,5 +159,5 @@ const submitBtn = {
     opacity: "1",
   },
 };
-const StyledContact = Radium(Contact);
-export default StyledContact;
+
+export default Radium(Contact);

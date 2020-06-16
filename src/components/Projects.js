@@ -7,9 +7,7 @@ const Projects = () => {
   let toolsArray = [];
 
   const [imageVisible, setVisible] = useState(false);
-  const [displayProject, setDisplayProject] = useState(0);
   const [projects, setProjects] = useState([]);
-  const [projectsLoaded, setProjectsLoaded] = useState(false);
 
   useEffect(() => {
     getProjectList((response) => {
@@ -82,23 +80,25 @@ const Projects = () => {
     </div>
   ));
   return (
-    <VizSensor
-      partialVisibility
-      onChange={(isVisible) => setVisible(!imageVisible)}
-    >
-      <div style={{ marginTop: "-20px" }}>
-        <animated.div style={sectionFlag} className="Pointer">
-          Projects
-        </animated.div>
-        <div style={body}>
-          <div style={container}>
-            <animated.div style={projectDisplay}>
-              <div>{ProjectPanel}</div>
-            </animated.div>
+    <section id="Projects">
+      <VizSensor
+        partialVisibility
+        onChange={(isVisible) => setVisible(!imageVisible)}
+      >
+        <div style={{ marginTop: "-20px" }}>
+          <animated.div style={sectionFlag} className="Pointer">
+            Projects
+          </animated.div>
+          <div style={body}>
+            <div style={container}>
+              <animated.div style={projectDisplay}>
+                <div>{ProjectPanel}</div>
+              </animated.div>
+            </div>
           </div>
         </div>
-      </div>
-    </VizSensor>
+      </VizSensor>
+    </section>
   );
 };
 
