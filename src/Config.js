@@ -1,4 +1,6 @@
-export const firebaseConfig = {
+import Firebase from "firebase";
+
+const firebaseConfig = {
   apiKey: "AIzaSyDwxt0duxMkW7Q3FUoWQaTSoe_xK0Hl2eA",
   authDomain: "portfolio-kp.firebaseapp.com",
   databaseURL: "https://portfolio-kp.firebaseio.com",
@@ -9,4 +11,5 @@ export const firebaseConfig = {
   measurementId: "G-39M23E2PYD",
 };
 
-export default firebaseConfig;
+Firebase.initializeApp(firebaseConfig);
+export default Firebase;

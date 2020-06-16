@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useSpring, animated } from "react-spring";
 import VizSensor from "react-visibility-sensor";
 
-import "./WorkExperience.css";
 const WorkExperience = ({ data }) => {
   const [imageVisible, setVisible] = useState(false);
   const [experience, setExperience] = useState(data);
@@ -16,7 +15,6 @@ const WorkExperience = ({ data }) => {
     <div>{position.Role}</div>
   ));
 
-  console.log(experience);
   return (
     <VizSensor
       partialVisibility

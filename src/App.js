@@ -4,9 +4,10 @@ import "./App.css";
 import Home from "./components/Home";
 import AboutMe from "./components/AboutMe";
 import WorkExperience from "./components/WorkExperience";
-import { firebaseConfig } from "./Config";
+import Projects from "./components/Projects";
+import StyledContact from "./components/Contact";
+import Firebase from "./Config";
 
-import Firebase from "firebase";
 import "firebase/analytics";
 import "firebase/auth";
 import "firebase/firestore";
@@ -14,8 +15,7 @@ import "firebase/firestore";
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.app = Firebase.initializeApp(firebaseConfig);
-    this.database = this.app.database();
+    this.database = Firebase.database();
     this.state = {
       Experience: [],
       Projects: [],
@@ -35,19 +35,6 @@ class App extends React.Component {
           Role: snapshot.val().Role,
         });
       });
-
-    this.database
-      .ref("Portfolio")
-      .orderByChild("ProjectName")
-      .on("child_added", (snapshot) => {
-        this.state.Projects.push({
-          id: snapshot.key,
-          Name: snapshot.val().Name,
-          Description: snapshot.val().Description,
-        });
-      });
-    console.log(this.state.Experience);
-    console.log(this.state.Projects);
   };
 
   getData = (passedRef) => {
@@ -75,7 +62,9 @@ class App extends React.Component {
       <div className="App">
         <Home />
         <AboutMe />
-        <WorkExperience data={this.state.Experience} />
+        {/* <WorkExperience data={this.state.Experience} /> */}
+        <Projects />
+        <StyledContact />
       </div>
     );
   }
