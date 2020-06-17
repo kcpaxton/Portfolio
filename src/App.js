@@ -11,6 +11,9 @@ import "firebase/auth";
 import "firebase/firestore";
 
 class App extends React.Component {
+  componentDidMount() {
+    document.title = "Kyle Paxton";
+  }
   render() {
     return (
       <div className="App">
@@ -18,7 +21,6 @@ class App extends React.Component {
 
         <Home />
         <AboutMe />
-        {/* <WorkExperience data={this.state.Experience} /> */}
         <Projects />
         <Contact />
       </div>

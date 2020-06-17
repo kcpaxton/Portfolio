@@ -2,18 +2,38 @@ import React, { useState, useEffect } from "react";
 import { useSpring, animated } from "react-spring";
 import VizSensor from "react-visibility-sensor";
 import Firebase from "../Config";
+import { MdCode, MdLaunch } from "react-icons/md";
 
 const Projects = () => {
   let toolsArray = [];
 
   const [imageVisible, setVisible] = useState(false);
   const [projects, setProjects] = useState([]);
+  const [mouseOnImage, setMouseOnImage] = useState(false);
+  const [mouseOnImageBtn, setMouseOnImageBtn] = useState(false);
+  const [triggerAnim, setTriggerAnim] = useState(false);
 
   useEffect(() => {
     getProjectList((response) => {
       setProjects(response);
     });
   }, []);
+
+  function handleMouseImageBtnEnter(id) {
+    setMouseOnImageBtn(id);
+    setTriggerAnim(true);
+  }
+  function handleMouseImageBtnLeave() {
+    setMouseOnImageBtn(false);
+    setTriggerAnim(false);
+  }
+
+  function handleMouseEnter(id) {
+    setMouseOnImage(id);
+  }
+  function handleMouseLeave() {
+    setMouseOnImage(false);
+  }
 
   const getProjectList = (callback) => {
     const projectsArray = [];
@@ -35,6 +55,9 @@ const Projects = () => {
               id: snapshot.key,
               Name: snapshot.val().Name,
               Description: snapshot.val().Description,
+              Image: snapshot.val().Image,
+              Link: snapshot.val().Link,
+              Github: snapshot.val().Github,
               Tools: toolsArray,
             });
             toolsArray = [];
@@ -55,15 +78,94 @@ const Projects = () => {
     opacity: imageVisible ? 0 : 1,
   });
 
-  const ProjectPanel = projects.map((project, i) => (
+  const imageOverlayDisplay = useSpring({
+    from: { opacity: 1 },
+    to: { opacity: 0.3, color: "#000" },
+  });
+
+  const { x } = useSpring({
+    from: { x: 0 },
+    x: triggerAnim ? 1 : 0,
+    config: { duration: 1000 },
+  });
+
+  const ProjectPanel = projects.map((project, index) => (
     <div style={panelStyle}>
-      <div key={i} style={panelBody}>
+      <div style={panelBody}>
         <div style={projectImage}>
-          <img
-            src="https://via.placeholder.com/240x240"
-            height="360"
-            width="360"
-          />
+          <div
+            key={project.id}
+            onMouseEnter={() => handleMouseEnter(project.id)}
+            onMouseLeave={handleMouseLeave}
+            style={imgContainer}
+          >
+            <animated.img
+              src={project.Image}
+              style={mouseOnImage === project.id ? imageOverlayDisplay : null}
+              height="360"
+              width="480"
+            ></animated.img>
+            {mouseOnImage === project.id ? (
+              <div style={imageBtnContainer}>
+                <animated.a
+                  onMouseOver={() => handleMouseImageBtnEnter("1")}
+                  onMouseOut={handleMouseImageBtnLeave}
+                  href={project.Github}
+                  target="_blank"
+                  key="1"
+                  style={
+                    mouseOnImageBtn === "1"
+                      ? {
+                          ...imageBtn,
+                          transform: x
+                            .interpolate({
+                              range: [0, 0.25, 0.35, 0.45, 0.55, 0.65, 0.75, 1],
+                              output: [1, 0.97, 0.9, 1.1, 0.9, 1.1, 1.03, 1],
+                            })
+                            .interpolate((x) => `scale(${x})`),
+                        }
+                      : imageBtn
+                  }
+                >
+                  <MdCode fontSize="4em" fill="#fff" />
+                </animated.a>
+                {project.Link != null ? <div style={divider}></div> : null}
+                {project.Link != null ? (
+                  <animated.a
+                    onMouseOver={() => handleMouseImageBtnEnter("2")}
+                    onMouseOut={handleMouseImageBtnLeave}
+                    href={project.Link}
+                    target="_blank"
+                    key="2"
+                    style={
+                      mouseOnImageBtn === "2"
+                        ? {
+                            ...imageBtn,
+                            transform: x
+                              .interpolate({
+                                range: [
+                                  0,
+                                  0.25,
+                                  0.35,
+                                  0.45,
+                                  0.55,
+                                  0.65,
+                                  0.75,
+                                  1,
+                                ],
+                                output: [1, 0.97, 0.9, 1.1, 0.9, 1.1, 1.03, 1],
+                              })
+                              .interpolate((x) => `scale(${x})`),
+                          }
+                        : imageBtn
+                    }
+                  >
+                    <MdLaunch fontSize="3em" fill="#fff" />
+                  </animated.a>
+                ) : null}
+              </div>
+            ) : null}
+          </div>
           <div style={toolSection}>
             {project.Tools.map((tool, j) => (
               <div style={toolStyle} key={j}>
@@ -79,6 +181,7 @@ const Projects = () => {
       </div>
     </div>
   ));
+
   return (
     <section id="Projects">
       <VizSensor
@@ -140,6 +243,7 @@ const projectImage = {
   display: "flex",
   flexDirection: "column",
   flex: "1",
+  marginRight: "2rem",
 };
 
 const projectName = {
@@ -172,6 +276,30 @@ const toolStyle = {
   boxShadow:
     " 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19)",
   color: "#000",
+};
+
+const imgContainer = {
+  position: "relative",
+};
+const imageBtnContainer = {
+  display: "flex",
+  opacity: "1",
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  alignItems: "center",
+};
+
+const imageBtn = {
+  margin: "0 2rem 0 2rem",
+  cursor: "pointer",
+  textDecoration: "none",
+};
+
+const divider = {
+  borderLeft: "2px solid white",
+  height: "4em",
 };
 
 export default Projects;

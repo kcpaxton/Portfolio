@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { Column, Row } from "simple-flexbox";
-export default class Home extends Component {
+import Radium from "radium";
+//import resume from "/documents/Kyle_Paxton_resume.pdf";
+
+class Home extends Component {
   render() {
     return (
       <div style={(Wrapper, Body)}>
@@ -13,13 +16,34 @@ export default class Home extends Component {
           </Row>
           <Row style={ButtonRow}>
             <Column>
-              <button style={HomeButton}>Github</button>
+              <a
+                href="https://github.com/kcpaxton"
+                target="_blank"
+                key="1"
+                style={HomeButton}
+              >
+                Github
+              </a>
             </Column>
             <Column>
-              <button style={HomeButton}>Resume</button>
+              <a
+                href={"/documents/Kyle_Paxton_resume.pdf"}
+                target="_blank"
+                key="2"
+                style={HomeButton}
+              >
+                Resume
+              </a>
             </Column>
             <Column>
-              <button style={HomeButton}>LinkedIn</button>
+              <a
+                href="https://www.linkedin.com/in/kyle-paxton/"
+                target="_blank"
+                key="3"
+                style={HomeButton}
+              >
+                LinkedIn
+              </a>
             </Column>
           </Row>
         </Column>
@@ -48,6 +72,16 @@ const HomeButton = {
   borderRadius: "10px",
   fontSize: "large",
   fontWeight: "bold",
+  cursor: "pointer",
+  opacity: "0.8",
+  color: "#000",
+  textDecoration: "none",
+  ":focus": {
+    outline: "none",
+  },
+  ":hover": {
+    opacity: "1",
+  },
 };
 
 const Wrapper = {
@@ -59,3 +93,5 @@ const Wrapper = {
 const Body = {
   color: "#fff",
 };
+
+export default Radium(Home);
