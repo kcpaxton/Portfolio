@@ -1,68 +1,59 @@
 import React, { Component } from "react";
-import { Column, Row } from "simple-flexbox";
 import Radium from "radium";
 //import resume from "/documents/Kyle_Paxton_resume.pdf";
 
 class Home extends Component {
   render() {
     return (
-      <div style={(Wrapper, Body)}>
-        <Column flexGrow={1}>
-          <Row horizontal="center">
-            <h1 style={NameTitle}>Kyle Paxton</h1>
-          </Row>
-          <Row horizontal="center">
-            <h1>Web and Front-End Developer</h1>
-          </Row>
-          <Row style={ButtonRow}>
-            <Column>
-              <a
-                href="https://github.com/kcpaxton"
-                target="_blank"
-                key="1"
-                style={HomeButton}
-              >
-                Github
-              </a>
-            </Column>
-            <Column>
-              <a
-                href={"/documents/Kyle_Paxton_resume.pdf"}
-                target="_blank"
-                key="2"
-                style={HomeButton}
-              >
-                Resume
-              </a>
-            </Column>
-            <Column>
-              <a
-                href="https://www.linkedin.com/in/kyle-paxton/"
-                target="_blank"
-                key="3"
-                style={HomeButton}
-              >
-                LinkedIn
-              </a>
-            </Column>
-          </Row>
-        </Column>
+      <div style={(Wrapper, Body, FlexContainer)}>
+        <div>
+          <h1 style={NameTitle}>Kyle Paxton</h1>
+          <h1 style={{ color: "#fff" }}>Web and Front-End Developer</h1>
+        </div>
+        <div style={(FlexContainer, ButtonRow)}>
+          <a
+            href="https://github.com/kcpaxton"
+            target="_blank"
+            key="1"
+            style={HomeButton}
+          >
+            Github
+          </a>
+          <a
+            href={"/documents/Kyle_Paxton_resume.pdf"}
+            target="_blank"
+            key="2"
+            style={HomeButton}
+          >
+            Resume
+          </a>
+
+          <a
+            href="https://www.linkedin.com/in/kyle-paxton/"
+            target="_blank"
+            key="3"
+            style={HomeButton}
+          >
+            LinkedIn
+          </a>
+        </div>
       </div>
     );
   }
 }
 
 const NameTitle = {
-  borderBottomWidth: "4px",
-  borderBottomStyle: "solid",
   padding: "20px",
   marginBottom: "0px",
   fontSize: "3em",
+  color: "#fff",
 };
 
 const ButtonRow = {
   justifyContent: "center",
   marginTop: "30px",
+  flexDirection: "row",
+  flewWrap: "wrap",
 };
 
 const HomeButton = {
@@ -86,10 +77,13 @@ const HomeButton = {
 
 const Wrapper = {
   maxWidth: "100%",
-  display: "flex",
-  flexWrap: "wrap",
 };
 
+const FlexContainer = {
+  display: "flex",
+  flexWrap: "wrap",
+  flexDirection: "column",
+};
 const Body = {
   color: "#fff",
 };

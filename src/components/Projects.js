@@ -3,6 +3,7 @@ import { useSpring, animated } from "react-spring";
 import VizSensor from "react-visibility-sensor";
 import Firebase from "../Config";
 import { MdCode, MdLaunch } from "react-icons/md";
+import Radium from "radium";
 
 const Projects = () => {
   let toolsArray = [];
@@ -74,9 +75,6 @@ const Projects = () => {
       : "translate3d(-0px,0,0)",
   });
   //fade animation
-  const projectDisplay = useSpring({
-    opacity: imageVisible ? 0 : 1,
-  });
 
   const imageOverlayDisplay = useSpring({
     from: { opacity: 1 },
@@ -102,8 +100,8 @@ const Projects = () => {
             <animated.img
               src={project.Image}
               style={mouseOnImage === project.id ? imageOverlayDisplay : null}
-              height="360"
-              width="480"
+              height="auto"
+              width="100%"
             ></animated.img>
             {mouseOnImage === project.id ? (
               <div style={imageBtnContainer}>
@@ -194,9 +192,7 @@ const Projects = () => {
           </animated.div>
           <div style={body}>
             <div style={container}>
-              <animated.div style={projectDisplay}>
-                <div>{ProjectPanel}</div>
-              </animated.div>
+              <div>{ProjectPanel}</div>
             </div>
           </div>
         </div>
@@ -244,6 +240,10 @@ const projectImage = {
   flexDirection: "column",
   flex: "1",
   marginRight: "2rem",
+  "@media (max-width: 956px)": {
+    flex: "unset",
+    marginRight: "0",
+  },
 };
 
 const projectName = {
@@ -253,7 +253,11 @@ const projectName = {
 const projectDescription = {
   display: "flex",
   flexDirection: "column",
-  flex: "2",
+  flex: "1.5",
+  "@media (max-width: 956px)": {
+    flex: "unset",
+    marginTop: "2rem",
+  },
 };
 
 const toolSection = {
@@ -280,6 +284,7 @@ const toolStyle = {
 
 const imgContainer = {
   position: "relative",
+  height: "auto",
 };
 const imageBtnContainer = {
   display: "flex",
@@ -302,4 +307,4 @@ const divider = {
   height: "4em",
 };
 
-export default Projects;
+export default Radium(Projects);

@@ -116,6 +116,8 @@ const body = {
 };
 const contactMe = {
   width: "50%",
+  display: "flex",
+  justifyContent: "center",
 };
 const container = {
   display: "flex",
