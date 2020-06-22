@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useSpring, animated } from "react-spring";
 import VizSensor from "react-visibility-sensor";
 import Firebase from "../Config";
@@ -6,19 +6,49 @@ import { MdCode, MdLaunch } from "react-icons/md";
 import Radium from "radium";
 
 const Projects = () => {
-  let toolsArray = [];
-
-  const [imageVisible, setVisible] = useState(false);
+  const [projectFlagVisible, setVisible] = useState(false);
   const [projects, setProjects] = useState([]);
   const [mouseOnImage, setMouseOnImage] = useState(false);
   const [mouseOnImageBtn, setMouseOnImageBtn] = useState(false);
   const [triggerAnim, setTriggerAnim] = useState(false);
+  const getProjectList = useCallback((callback) => {
+    const projectsArray = [];
+    const toolsArray = [];
+    var i = 0;
+    //grab the all the projects in the database.
+    Firebase.database()
+      .ref("/Portfolio")
+      .once("value", function (allProjects) {
+        // Gets each project in portfolio database and insets into projectArray
+        Firebase.database()
+          .ref("/Portfolio")
+          .orderByChild("ProjectName")
+          .on("child_added", (snapshot) => {
+            i++;
+            snapshot.val().Tools.forEach((item) => {
+              toolsArray.push(item);
+            });
+            projectsArray.push({
+              id: snapshot.key,
+              Name: snapshot.val().Name,
+              Description: snapshot.val().Description,
+              Image: snapshot.val().Image,
+              Link: snapshot.val().Link,
+              Github: snapshot.val().Github,
+              Tools: toolsArray,
+            });
+            if (allProjects.numChildren() === i) {
+              callback(projectsArray);
+            }
+          });
+      });
+  }, []);
 
   useEffect(() => {
     getProjectList((response) => {
       setProjects(response);
     });
-  }, []);
+  }, [getProjectList]);
 
   function handleMouseImageBtnEnter(id) {
     setMouseOnImageBtn(id);
@@ -36,43 +66,11 @@ const Projects = () => {
     setMouseOnImage(false);
   }
 
-  const getProjectList = (callback) => {
-    const projectsArray = [];
-    var i = 0;
-    //grab the all the projects in the database.
-    Firebase.database()
-      .ref("/Portfolio")
-      .once("value", function (allProjects) {
-        // Gets each project in portfolio database and insets into projectArray
-        Firebase.database()
-          .ref("/Portfolio")
-          .orderByChild("ProjectName")
-          .on("child_added", (snapshot) => {
-            i++;
-            snapshot.val().Tools.map((item, i) => {
-              toolsArray.push(item);
-            });
-            projectsArray.push({
-              id: snapshot.key,
-              Name: snapshot.val().Name,
-              Description: snapshot.val().Description,
-              Image: snapshot.val().Image,
-              Link: snapshot.val().Link,
-              Github: snapshot.val().Github,
-              Tools: toolsArray,
-            });
-            toolsArray = [];
-            if (allProjects.numChildren() === i) {
-              callback(projectsArray);
-            }
-          });
-      });
-  };
   //the sections flag animation
   const sectionFlag = useSpring({
-    transform: imageVisible
-      ? "translate3d(-400px,0,0)"
-      : "translate3d(-0px,0,0)",
+    transform: projectFlagVisible
+      ? "translate3d(0px,0,0)"
+      : "translate3d(-400px,0,0)",
   });
   //fade animation
 
@@ -88,9 +86,9 @@ const Projects = () => {
   });
 
   const ProjectPanel = projects.map((project, index) => (
-    <div style={panelStyle}>
-      <div style={panelBody}>
-        <div style={projectImage}>
+    <div key={project.id} style={panelStyle}>
+      <div key={project.id} style={panelBody}>
+        <div key={project.id} style={projectImage}>
           <div
             key={project.id}
             onMouseEnter={() => handleMouseEnter(project.id)}
@@ -182,21 +180,21 @@ const Projects = () => {
 
   return (
     <section id="Projects">
-      <VizSensor
-        partialVisibility
-        onChange={(isVisible) => setVisible(!imageVisible)}
-      >
-        <div style={{ marginTop: "-20px" }}>
+      <div style={{ marginTop: "-20px" }}>
+        <VizSensor
+          partialVisibility
+          onChange={(isVisible) => setVisible(isVisible)}
+        >
           <animated.div style={sectionFlag} className="Pointer">
             Projects
           </animated.div>
-          <div style={body}>
-            <div style={container}>
-              <div>{ProjectPanel}</div>
-            </div>
+        </VizSensor>
+        <div style={body}>
+          <div style={container}>
+            <div>{ProjectPanel}</div>
           </div>
         </div>
-      </VizSensor>
+      </div>
     </section>
   );
 };
@@ -209,7 +207,7 @@ const body = {
   flexWrap: "wrap",
   color: "#fff",
   backgroundColor: "#262d3b",
-  paddingTop: "60px",
+  paddingTop: "8rem",
   marginTop: "-20px",
   justifyContent: "center",
 };

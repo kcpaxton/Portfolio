@@ -5,15 +5,17 @@ import Radium from "radium";
 class Home extends Component {
   render() {
     return (
-      <div style={(Wrapper, Body, FlexContainer)}>
-        <div>
+      <div style={{ ...Wrapper, ...Body, ...FlexContainer }}>
+        <div style={FlexContainer}>
           <h1 style={NameTitle}>Kyle Paxton</h1>
-          <h1 style={{ color: "#fff" }}>Web and Front-End Developer</h1>
+          <div style={NameTitleLine}></div>
+          <h1 style={SubTitle}>Web and Front-End Developer</h1>
         </div>
-        <div style={(FlexContainer, ButtonRow)}>
+        <div style={{ ...FlexContainer, ...ButtonRow }}>
           <a
             href="https://github.com/kcpaxton"
             target="_blank"
+            rel="noopener noreferrer"
             key="1"
             style={HomeButton}
           >
@@ -22,6 +24,7 @@ class Home extends Component {
           <a
             href={"/documents/Kyle_Paxton_resume.pdf"}
             target="_blank"
+            rel="noopener noreferrer"
             key="2"
             style={HomeButton}
           >
@@ -31,6 +34,7 @@ class Home extends Component {
           <a
             href="https://www.linkedin.com/in/kyle-paxton/"
             target="_blank"
+            rel="noopener noreferrer"
             key="3"
             style={HomeButton}
           >
@@ -43,10 +47,21 @@ class Home extends Component {
 }
 
 const NameTitle = {
-  padding: "20px",
+  paddingTop: "20px",
   marginBottom: "0px",
   fontSize: "3em",
   color: "#fff",
+};
+
+const NameTitleLine = {
+  borderBottom: "5px solid",
+  alignSelf: "center",
+  width: "20%",
+  margin: "2rem 0",
+};
+const SubTitle = {
+  color: "#fff",
+  margin: "0 0 3rem",
 };
 
 const ButtonRow = {
@@ -86,6 +101,7 @@ const FlexContainer = {
 };
 const Body = {
   color: "#fff",
+  marginBottom: "10rem",
 };
 
 export default Radium(Home);

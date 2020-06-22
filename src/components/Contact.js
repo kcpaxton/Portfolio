@@ -9,9 +9,9 @@ const Contact = () => {
   var fireStore = Firebase.firestore();
   const mailRef = fireStore.collection("mail");
 
-  const [imageVisible, setVisible] = useState(true);
+  const [contactFlagVisible, setVisible] = useState(false);
   const sectionFlag = useSpring({
-    transform: imageVisible
+    transform: contactFlagVisible
       ? "translate3d(0px,0,0)"
       : "translate3d(-400px,0,0)",
   });
@@ -47,58 +47,58 @@ const Contact = () => {
 
   return (
     <section id="Contact">
-      <VizSensor
-        partialVisibility
-        onChange={(isVisible) => setVisible(!imageVisible)}
-      >
-        <div style={{ marginTop: "3rem" }}>
+      <div style={{ marginTop: "3rem" }}>
+        <VizSensor
+          partialVisibility
+          onChange={(isVisible) => setVisible(isVisible)}
+        >
           <animated.div style={sectionFlag} className="Pointer">
             Contact Me
           </animated.div>
-          <div style={body} className="componentBody">
-            <div style={container}>
-              <div>
-                <h3>Get in contact with me!</h3>
-              </div>
-              <div className="alert" style={alert}>
-                Your message has been sent
-              </div>
-              <div style={contactMe}>
-                <form id="contactForm">
-                  <input
-                    type="text"
-                    name="name"
-                    id="name"
-                    placeholder="Name"
-                    style={inputFields}
-                    required
-                  ></input>
-                  <input
-                    type="email"
-                    name="email"
-                    id="email"
-                    placeholder="Email"
-                    style={inputFields}
-                    required
-                  ></input>
-                  <textarea
-                    rows="5"
-                    name="message"
-                    id="message"
-                    placeholder="Your message"
-                    style={inputFields}
-                  ></textarea>
-                  <p>
-                    <button style={submitBtn} onClick={handleClick}>
-                      Send message
-                    </button>
-                  </p>
-                </form>
-              </div>
+        </VizSensor>
+        <div style={body} className="componentBody">
+          <div style={container}>
+            <div>
+              <h3>Get in contact with me!</h3>
+            </div>
+            <div className="alert" style={alert}>
+              Your message has been sent
+            </div>
+            <div style={contactMe}>
+              <form id="contactForm">
+                <input
+                  type="text"
+                  name="name"
+                  id="name"
+                  placeholder="Name"
+                  style={inputFields}
+                  required
+                ></input>
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  placeholder="Email"
+                  style={inputFields}
+                  required
+                ></input>
+                <textarea
+                  rows="5"
+                  name="message"
+                  id="message"
+                  placeholder="Your message"
+                  style={inputFields}
+                ></textarea>
+                <p>
+                  <button style={submitBtn} onClick={handleClick}>
+                    Send message
+                  </button>
+                </p>
+              </form>
             </div>
           </div>
         </div>
-      </VizSensor>
+      </div>
     </section>
   );
 };
