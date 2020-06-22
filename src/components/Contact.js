@@ -47,7 +47,7 @@ const Contact = () => {
 
   return (
     <section id="Contact">
-      <div style={{ marginTop: "3rem" }}>
+      <div style={{ marginTop: "-20px" }}>
         <VizSensor
           partialVisibility
           onChange={(isVisible) => setVisible(isVisible)}
@@ -109,7 +109,7 @@ const body = {
   flexDirection: "row",
   flexWrap: "wrap",
   color: "#fff",
-  backgroundColor: "#284263",
+  backgroundColor: "#262d3b",
   paddingTop: "60px",
   marginTop: "-20px",
   justifyContent: "center",

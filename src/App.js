@@ -5,7 +5,7 @@ import AboutMe from "./components/AboutMe";
 import Projects from "./components/Projects";
 import Contact from "./components/Contact";
 import NavBar from "./components/NavBar";
-
+import Skills from "./components/Skills";
 import { StyleRoot } from "radium";
 
 import "firebase/analytics";
@@ -24,7 +24,7 @@ class App extends React.Component {
 
           <Home />
           <AboutMe />
-
+          <Skills />
           <Projects />
 
           <Contact />

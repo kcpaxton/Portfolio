@@ -206,8 +206,8 @@ const body = {
   flexDirection: "row",
   flexWrap: "wrap",
   color: "#fff",
-  backgroundColor: "#262d3b",
-  paddingTop: "8rem",
+  backgroundColor: "#284263",
+  padding: "8rem 0 6rem",
   marginTop: "-20px",
   justifyContent: "center",
 };
@@ -221,7 +221,7 @@ const panelStyle = {
   marginBottom: "2.5rem",
   boxShadow:
     " 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
-  backgroundColor: "#284263",
+  backgroundColor: "#262d3b",
 };
 
 const panelBody = {

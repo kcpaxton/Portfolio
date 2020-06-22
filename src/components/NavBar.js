@@ -11,11 +11,16 @@ const NavBar = () => {
         </Link>
       </li>
       <li style={link} key="2">
+        <Link activeClass="active" to="Skills" spy={true} smooth={true}>
+          Skills
+        </Link>
+      </li>
+      <li style={link} key="3">
         <Link activeClass="active" to="Projects" spy={true} smooth={true}>
           Projects
         </Link>
       </li>
-      <li style={link} key="3">
+      <li style={link} key="4">
         <Link activeClass="active" to="Contact" spy={true} smooth={true}>
           Contact Me
         </Link>
