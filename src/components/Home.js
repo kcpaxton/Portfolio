@@ -7,7 +7,7 @@ class Home extends Component {
     return (
       <div style={{ ...Wrapper, ...Body, ...FlexContainer }}>
         <div style={FlexContainer}>
-          <h1 style={NameTitle}>Kyle Paxton</h1>
+          <h1 style={NameTitle}>KYLE PAXTON</h1>
           <div style={NameTitleLine}></div>
           <h1 style={SubTitle}>Web and Front-End Developer</h1>
         </div>
@@ -49,19 +49,22 @@ class Home extends Component {
 const NameTitle = {
   paddingTop: "20px",
   marginBottom: "0px",
-  fontSize: "3em",
-  color: "#fff",
+  fontSize: "6em",
+  color: "beige",
+  letterSpacing: "0.5rem",
 };
 
 const NameTitleLine = {
-  borderBottom: "5px solid",
+  borderBottom: "5px solid darkgoldenrod",
   alignSelf: "center",
-  width: "20%",
+  width: "40%",
   margin: "2rem 0",
 };
 const SubTitle = {
-  color: "#fff",
+  color: "beige",
   margin: "0 0 3rem",
+  fontWeight: "300",
+  fontSize: "2.3em",
 };
 
 const ButtonRow = {
@@ -73,7 +76,7 @@ const ButtonRow = {
 
 const HomeButton = {
   margin: "0 30px 0 30px",
-  background: "white",
+  background: "beige",
   padding: "15px 30px",
   borderRadius: "10px",
   fontSize: "large",

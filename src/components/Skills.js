@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { useSpring, animated } from "react-spring";
+import { useSpring, useTrail, animated } from "react-spring";
 import VizSensor from "react-visibility-sensor";
 import Firebase from "../Config";
 import Radium from "radium";
@@ -29,18 +29,19 @@ const Skills = () => {
   const [skills, setSkills] = useState([]);
   const [skillsFlagVisible, setVisible] = useState(false);
   const [skillsSectionVisible, setSkillsVisible] = useState(false);
+  const config = { duration: 1500, mass: 5, tension: 2000, friction: 200 };
   const sectionFlag = useSpring({
     transform: skillsFlagVisible
       ? "translate3d(0px,0,0)"
       : "translate3d(-400px,0,0)",
   });
-  const skillsTranslate = useSpring({
-    config: { duration: 700, offset: "2rem" },
-    transform: skillsSectionVisible
-      ? "translate3d(0px,0,0)"
-      : "translate3d(1600px,0,0)",
-
-    opacity: skillsSectionVisible ? 1 : 0,
+  const skillsTrail = useTrail(skills.length, {
+    config,
+    from: { opacity: 0, x: 20 },
+    to: {
+      opacity: skillsSectionVisible ? 1 : 0,
+      x: skillsSectionVisible ? 20 : 10,
+    },
   });
   useEffect(() => {
     getSkillList((response) => {
@@ -49,27 +50,28 @@ const Skills = () => {
   }, [getSkillList]);
   return (
     <section id="Skills">
-      <div style={{ marginTop: "-20px" }}>
+      <div style={{ marginTop: "-30px" }}>
         <VizSensor
           partialVisibility
           onChange={(isVisible) => setVisible(isVisible)}
         >
           <animated.div style={sectionFlag} className="Pointer">
-            Skills
+            SKILLS
           </animated.div>
         </VizSensor>
-        <div style={body} className="componentBody">
+        <div style={body} className={"componentBody primaryColor"}>
           <VizSensor
             partialVisibility
             onChange={(isVisible) => setSkillsVisible(isVisible)}
           >
             <div style={container}>
-              {skills.map((skill, i) => (
+              {skillsTrail.map(({ x, ...props }, i) => (
                 <animated.div
-                  style={{ ...skillStyle, ...skillsTranslate }}
+                  className="secondaryColor"
+                  style={{ x, ...skillStyle, ...props }}
                   key={i}
                 >
-                  {skill}
+                  {skills[i]}
                 </animated.div>
               ))}
             </div>
@@ -81,8 +83,7 @@ const Skills = () => {
 };
 
 const body = {
-  color: "#fff",
-  backgroundColor: "#262d3b",
+  color: "beige",
   display: "flex",
   justifyContent: "center",
   fontSize: "1.5rem",
@@ -99,7 +100,6 @@ const skillStyle = {
   width: "25rem",
   padding: "1rem 0",
   margin: "1.5rem 0.5rem",
-  backgroundColor: "#284263",
   boxShadow:
     " 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
 };

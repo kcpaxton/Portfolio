@@ -4,6 +4,7 @@ import VizSensor from "react-visibility-sensor";
 import Firebase from "../Config";
 import { MdCode, MdLaunch } from "react-icons/md";
 import Radium from "radium";
+import "../GlobalStyles.css";
 
 const Projects = () => {
   const [projectFlagVisible, setVisible] = useState(false);
@@ -11,6 +12,7 @@ const Projects = () => {
   const [mouseOnImage, setMouseOnImage] = useState(false);
   const [mouseOnImageBtn, setMouseOnImageBtn] = useState(false);
   const [triggerAnim, setTriggerAnim] = useState(false);
+
   const getProjectList = useCallback((callback) => {
     const projectsArray = [];
     const toolsArray = [];
@@ -86,8 +88,8 @@ const Projects = () => {
   });
 
   const ProjectPanel = projects.map((project, index) => (
-    <div key={project.id} style={panelStyle}>
-      <div key={project.id} style={panelBody}>
+    <div key={project.id} className="primaryColor" style={panelStyle}>
+      <div key={project.id} className="primaryColor" style={panelBody}>
         <div key={project.id} style={projectImage}>
           <div
             key={project.id}
@@ -172,7 +174,7 @@ const Projects = () => {
         </div>
         <div style={projectDescription}>
           <span style={projectName}>{project.Name}</span>
-          <span>{project.Description}</span>
+          <span style={projectSubDescription}>{project.Description}</span>
         </div>
       </div>
     </div>
@@ -180,16 +182,16 @@ const Projects = () => {
 
   return (
     <section id="Projects">
-      <div style={{ marginTop: "-20px" }}>
+      <div>
         <VizSensor
           partialVisibility
           onChange={(isVisible) => setVisible(isVisible)}
         >
           <animated.div style={sectionFlag} className="Pointer">
-            Projects
+            PROJECTS
           </animated.div>
         </VizSensor>
-        <div style={body}>
+        <div className="secondaryColor" style={body}>
           <div style={container}>
             <div>{ProjectPanel}</div>
           </div>
@@ -205,10 +207,9 @@ const body = {
   flex: "1",
   flexDirection: "row",
   flexWrap: "wrap",
-  color: "#fff",
-  backgroundColor: "#284263",
+  color: "bisque",
   padding: "8rem 0 6rem",
-  marginTop: "-20px",
+  marginTop: "-30px",
   justifyContent: "center",
 };
 const container = {
@@ -221,7 +222,6 @@ const panelStyle = {
   marginBottom: "2.5rem",
   boxShadow:
     " 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
-  backgroundColor: "#262d3b",
 };
 
 const panelBody = {
@@ -247,6 +247,10 @@ const projectImage = {
 const projectName = {
   fontSize: "2rem",
   marginBottom: "3rem",
+};
+const projectSubDescription = {
+  fontSize: "1.2rem",
+  padding: "0 2rem",
 };
 const projectDescription = {
   display: "flex",
@@ -301,7 +305,7 @@ const imageBtn = {
 };
 
 const divider = {
-  borderLeft: "2px solid white",
+  borderLeft: "2px solid bisque",
   height: "4em",
 };
 

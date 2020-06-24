@@ -47,20 +47,18 @@ const Contact = () => {
 
   return (
     <section id="Contact">
-      <div style={{ marginTop: "-20px" }}>
+      <div style={{ marginTop: "-30px" }}>
         <VizSensor
           partialVisibility
           onChange={(isVisible) => setVisible(isVisible)}
         >
           <animated.div style={sectionFlag} className="Pointer">
-            Contact Me
+            CONTACT ME
           </animated.div>
         </VizSensor>
-        <div style={body} className="componentBody">
+        <div style={body} className={("componentBody", "primaryColor")}>
           <div style={container}>
-            <div>
-              <h3>Get in contact with me!</h3>
-            </div>
+            <p style={contactTitle}>Get in contact with me!</p>
             <div className="alert" style={alert}>
               Your message has been sent
             </div>
@@ -108,8 +106,7 @@ const body = {
   flex: "1",
   flexDirection: "row",
   flexWrap: "wrap",
-  color: "#fff",
-  backgroundColor: "#262d3b",
+  color: "beige",
   paddingTop: "60px",
   marginTop: "-20px",
   justifyContent: "center",
@@ -126,7 +123,10 @@ const container = {
   flexDirection: "column",
   width: "60%",
 };
-
+const contactTitle = {
+  fontSize: "2rem",
+  color: "beige",
+};
 const alert = {
   textAlign: "center",
   padding: "10px",
@@ -151,7 +151,7 @@ const submitBtn = {
   backgroundColor: "transparent",
   border: "3px solid",
   borderRadius: "10px",
-  color: "#fff",
+  color: "beige",
   cursor: "pointer",
   opacity: "0.8",
   ":focus": {

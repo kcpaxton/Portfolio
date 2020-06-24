@@ -1,5 +1,6 @@
 import React from "react";
 import "./App.css";
+import "./GlobalStyles.css";
 import Home from "./components/Home";
 import AboutMe from "./components/AboutMe";
 import Projects from "./components/Projects";
@@ -18,7 +19,7 @@ class App extends React.Component {
   }
   render() {
     return (
-      <div className="App">
+      <div className={"App primaryColor"}>
         <StyleRoot>
           <NavBar />
 
