@@ -7,12 +7,12 @@ const AboutMe = () => {
   const sectionFlag = useSpring({
     transform: aboutFlagVisible
       ? "translate3d(0px,0,0)"
-      : "translate3d(-400px,0,0)",
+      : "translate3d(-100px,0,0)",
   });
 
   return (
     <section id="About">
-      <div style={{ marginTop: "3rem" }}>
+      <div style={Wrapper}>
         <VizSensor
           partialVisibility
           onChange={(isVisible) => setVisible(isVisible)}
@@ -55,4 +55,8 @@ const container = {
   lineHeight: "1.5",
 };
 
+const Wrapper = {
+  maxWidth: "100%",
+  marginTop: "3rem",
+};
 export default AboutMe;

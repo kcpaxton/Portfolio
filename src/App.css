@@ -35,5 +35,11 @@
 
 .componentBody {
   margin-top: -30px;
-  padding: 40px;
+  /* padding: 40px; */
+}
+
+@media (max-width: 576px) {
+  .Pointer {
+    font-size: 1.2em;
+  }
 }

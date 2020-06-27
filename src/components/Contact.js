@@ -13,7 +13,7 @@ const Contact = () => {
   const sectionFlag = useSpring({
     transform: contactFlagVisible
       ? "translate3d(0px,0,0)"
-      : "translate3d(-400px,0,0)",
+      : "translate3d(-100px,0,0)",
   });
 
   function handleClick(e) {
@@ -47,7 +47,7 @@ const Contact = () => {
 
   return (
     <section id="Contact">
-      <div style={{ marginTop: "-30px" }}>
+      <div style={Wrapper}>
         <VizSensor
           partialVisibility
           onChange={(isVisible) => setVisible(isVisible)}
@@ -121,7 +121,7 @@ const container = {
   justifyContent: "center",
   alignItems: "center",
   flexDirection: "column",
-  width: "60%",
+  padding: "0 0 5rem",
 };
 const contactTitle = {
   fontSize: "2rem",
@@ -145,6 +145,7 @@ const inputFields = {
   color: "#fff",
   boxShadow:
     " 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19)",
+  fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI'",
 };
 const submitBtn = {
   padding: "10px 15px",
@@ -161,5 +162,8 @@ const submitBtn = {
     opacity: "1",
   },
 };
-
+const Wrapper = {
+  maxWidth: "100%",
+  marginTop: "-30px",
+};
 export default Radium(Contact);

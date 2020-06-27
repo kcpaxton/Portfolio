@@ -52,6 +52,9 @@ const NameTitle = {
   fontSize: "6em",
   color: "beige",
   letterSpacing: "0.5rem",
+  "@media (max-width: 576px)": {
+    fontSize: "4.5em",
+  },
 };
 
 const NameTitleLine = {
@@ -90,6 +93,9 @@ const HomeButton = {
   },
   ":hover": {
     opacity: "1",
+  },
+  "@media (max-width: 576px)": {
+    margin: "10px",
   },
 };
 

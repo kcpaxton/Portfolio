@@ -72,7 +72,7 @@ const Projects = () => {
   const sectionFlag = useSpring({
     transform: projectFlagVisible
       ? "translate3d(0px,0,0)"
-      : "translate3d(-400px,0,0)",
+      : "translate3d(-100px,0,0)",
   });
   //fade animation
 
@@ -182,7 +182,7 @@ const Projects = () => {
 
   return (
     <section id="Projects">
-      <div>
+      <div style={Wrapper}>
         <VizSensor
           partialVisibility
           onChange={(isVisible) => setVisible(isVisible)}
@@ -191,6 +191,7 @@ const Projects = () => {
             PROJECTS
           </animated.div>
         </VizSensor>
+
         <div className="secondaryColor" style={body}>
           <div style={container}>
             <div>{ProjectPanel}</div>
@@ -207,7 +208,7 @@ const body = {
   flex: "1",
   flexDirection: "row",
   flexWrap: "wrap",
-  color: "bisque",
+  color: "beige",
   padding: "8rem 0 6rem",
   marginTop: "-30px",
   justifyContent: "center",
@@ -251,6 +252,9 @@ const projectName = {
 const projectSubDescription = {
   fontSize: "1.2rem",
   padding: "0 2rem",
+  "@media (max-width: 576px)": {
+    padding: "0",
+  },
 };
 const projectDescription = {
   display: "flex",
@@ -305,8 +309,10 @@ const imageBtn = {
 };
 
 const divider = {
-  borderLeft: "2px solid bisque",
+  borderLeft: "2px solid beige",
   height: "4em",
 };
-
+const Wrapper = {
+  maxWidth: "100%",
+};
 export default Radium(Projects);

@@ -29,11 +29,11 @@ const Skills = () => {
   const [skills, setSkills] = useState([]);
   const [skillsFlagVisible, setVisible] = useState(false);
   const [skillsSectionVisible, setSkillsVisible] = useState(false);
-  const config = { duration: 1500, mass: 5, tension: 2000, friction: 200 };
+  const config = { duration: 150 };
   const sectionFlag = useSpring({
     transform: skillsFlagVisible
       ? "translate3d(0px,0,0)"
-      : "translate3d(-400px,0,0)",
+      : "translate3d(-100px,0,0)",
   });
   const skillsTrail = useTrail(skills.length, {
     config,
@@ -50,7 +50,7 @@ const Skills = () => {
   }, [getSkillList]);
   return (
     <section id="Skills">
-      <div style={{ marginTop: "-30px" }}>
+      <div style={Wrapper}>
         <VizSensor
           partialVisibility
           onChange={(isVisible) => setVisible(isVisible)}
@@ -59,6 +59,7 @@ const Skills = () => {
             SKILLS
           </animated.div>
         </VizSensor>
+
         <div style={body} className={"componentBody primaryColor"}>
           <VizSensor
             partialVisibility
@@ -89,7 +90,7 @@ const body = {
   fontSize: "1.5rem",
 };
 const container = {
-  margin: "4rem",
+  margin: "4rem 0",
   width: "70%",
   lineHeight: "1.5",
   display: "flex",
@@ -97,10 +98,15 @@ const container = {
   justifyContent: "space-evenly",
 };
 const skillStyle = {
-  width: "25rem",
+  width: "47%",
   padding: "1rem 0",
   margin: "1.5rem 0.5rem",
   boxShadow:
     " 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
+};
+const Wrapper = {
+  maxWidth: "100%",
+  marginTop: "-30px",
+  overflowX: "hidden",
 };
 export default Radium(Skills);
