@@ -1,45 +1,119 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-scroll";
 import Radium from "radium";
+import { MdMenu } from "react-icons/md";
+import { useTrail, animated } from "react-spring";
 import logo from "../PortfolioFaviconV3.png";
 
-const NavBar = () => {
+const NavBar = (props) => {
+  /* #region  Variables */
+  const [hamburgerNavActive, setHamburgerNav] = useState(false);
+  const [navHeight, setNavHeight] = useState(0);
+  const navRef = useRef(null);
+  const links = ["About Me", "Skills", "Projects", "Contact Me"];
+  /* #endregion */
+
+  /* #region  Lifecycle */
+  useEffect(() => {
+    setNavHeight(navRef.current.clientHeight);
+  }, []);
+
+  /* #endregion */
+
+  /* #region  Animation */
+  const config = { mass: 5, tension: 2000, friction: 200 };
+
+  const trail = useTrail(links.length, {
+    config,
+    opacity: hamburgerNavActive ? 1 : 0,
+    x: hamburgerNavActive ? 0 : 20,
+    trail: 400 / links.length,
+    height: hamburgerNavActive ? 80 : 0,
+
+    from: { opacity: 0, x: 20, height: 0 },
+  });
+  /* #endregion */
+
+  /* #region  Event Handlers */
+  const handleHamburgerClick = (e) => {
+    setHamburgerNav(!hamburgerNavActive);
+    props.action();
+  };
+
+  const handleLinkClick = () => {
+    setHamburgerNav(false);
+    props.action();
+  };
+  /* #endregion */
+
+  /* #region  Return */
   return (
-    <div style={navbarStyle}>
+    <div style={navbarStyle} ref={navRef}>
       <div>
         <img src={logo} alt={"KP"} style={logoStyle} />
       </div>
       <div>
-        <ul style={linkSection}>
-          <li style={link} key="1">
-            <Link activeClass="active" to="About" spy={true} smooth={true}>
-              About Me
-            </Link>
-          </li>
-          <li style={link} key="2">
-            <Link activeClass="active" to="Skills" spy={true} smooth={true}>
-              Skills
-            </Link>
-          </li>
-          <li style={link} key="3">
-            <Link activeClass="active" to="Projects" spy={true} smooth={true}>
-              Projects
-            </Link>
-          </li>
-          <li style={link} key="4">
-            <Link activeClass="active" to="Contact" spy={true} smooth={true}>
-              Contact Me
-            </Link>
-          </li>
-        </ul>
+        <div style={hamburger}>
+          <button
+            onClick={() => {
+              handleHamburgerClick();
+            }}
+            style={hamburgerBtn}
+          >
+            <MdMenu fontSize="3em" fill="beige" />
+          </button>
+
+          <div style={hamburgerNavDiv}>
+            <ul style={{ ...hamburgerListNav, marginTop: navHeight }}>
+              {trail.map(({ x, height, ...rest }, index) => (
+                <animated.div
+                  key={links[index]}
+                  style={{
+                    ...rest,
+                    transform: x.interpolate((x) => `translate3d(0,${x}px,0)`),
+                  }}
+                >
+                  <animated.li style={hamLink}>
+                    <Link
+                      activeClass="active"
+                      to={links[index]}
+                      spy={true}
+                      smooth={true}
+                      onClick={() => {
+                        handleLinkClick();
+                      }}
+                    >
+                      {links[index].toUpperCase()}
+                    </Link>
+                  </animated.li>
+                </animated.div>
+              ))}
+            </ul>
+          </div>
+        </div>
+        <div style={listNav}>
+          <ul style={linkSection}>
+            {links.map((link, index) => (
+              <li style={navLink} key={index}>
+                <Link activeClass="active" to={link} spy={true} smooth={true}>
+                  {link}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
   );
+  /* #endregion */
 };
+
+/* #region  Styles */
 const navbarStyle = {
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",
+  overflowX: "hidden",
 };
 
 const logoStyle = {
@@ -57,7 +131,7 @@ const linkSection = {
   color: "beige",
 };
 
-const link = {
+const navLink = {
   margin: "3px 10px",
   cursor: "pointer",
   padding: "10px 0 10px",
@@ -66,5 +140,59 @@ const link = {
     opacity: "1",
   },
 };
+
+const hamLink = {
+  margin: "3px 10px",
+  cursor: "pointer",
+  padding: "10px 0 10px",
+  backgroundColor: "darkgoldenrod",
+
+  justifyContent: "center",
+  display: "flex",
+  borderRadius: "15px",
+  margin: "1rem 0",
+  fontWeight: "500",
+};
+
+const hamburgerBtn = {
+  backgroundColor: "transparent",
+  border: "none",
+  zIndex: "101",
+  position: "relative",
+  marginRight: "1rem",
+};
+const hamburgerNavDiv = {
+  position: "absolute",
+  right: "0",
+  top: "0",
+  zIndex: "100",
+  overflowX: "hidden",
+  width: "60%",
+  marginTop: "1rem",
+};
+
+const hamburgerListNav = {
+  listStyle: "none",
+  color: "beige",
+  height: "100vh",
+  padding: "0",
+  marginRight: "1rem",
+  textAlign: "left",
+};
+
+const hamburger = {
+  display: "none",
+  "@media (max-width: 576px)": {
+    display: "block",
+  },
+};
+
+const listNav = {
+  display: "block",
+  "@media (max-width: 576px)": {
+    display: "none",
+  },
+};
+/* #endregion */
 
 export default Radium(NavBar);

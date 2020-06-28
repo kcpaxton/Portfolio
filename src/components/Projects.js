@@ -7,12 +7,15 @@ import Radium from "radium";
 import "../GlobalStyles.css";
 
 const Projects = () => {
+  /* #region  Variables */
   const [projectFlagVisible, setVisible] = useState(false);
   const [projects, setProjects] = useState([]);
   const [mouseOnImage, setMouseOnImage] = useState(false);
   const [mouseOnImageBtn, setMouseOnImageBtn] = useState(false);
   const [triggerAnim, setTriggerAnim] = useState(false);
+  /* #endregion */
 
+  /* #region  Database */
   const getProjectList = useCallback((callback) => {
     const projectsArray = [];
     const toolsArray = [];
@@ -45,13 +48,17 @@ const Projects = () => {
           });
       });
   }, []);
+  /* #endregion */
 
+  /* #region  Lifecycle */
   useEffect(() => {
     getProjectList((response) => {
       setProjects(response);
     });
   }, [getProjectList]);
+  /* #endregion */
 
+  /* #region  Event Handlers */
   function handleMouseImageBtnEnter(id) {
     setMouseOnImageBtn(id);
     setTriggerAnim(true);
@@ -67,15 +74,17 @@ const Projects = () => {
   function handleMouseLeave() {
     setMouseOnImage(false);
   }
+  /* #endregion */
 
+  /* #region  Animation */
   //the sections flag animation
   const sectionFlag = useSpring({
     transform: projectFlagVisible
       ? "translate3d(0px,0,0)"
       : "translate3d(-100px,0,0)",
   });
-  //fade animation
 
+  //fade animation
   const imageOverlayDisplay = useSpring({
     from: { opacity: 1 },
     to: { opacity: 0.3, color: "#000" },
@@ -86,7 +95,9 @@ const Projects = () => {
     x: triggerAnim ? 1 : 0,
     config: { duration: 1000 },
   });
+  /* #endregion */
 
+  /* #region  ProjectPanel */
   const ProjectPanel = projects.map((project, index) => (
     <div key={project.id} className="primaryColor" style={panelStyle}>
       <div key={project.id} className="primaryColor" style={panelBody}>
@@ -179,7 +190,9 @@ const Projects = () => {
       </div>
     </div>
   ));
+  /* #endregion */
 
+  /* #region  Return */
   return (
     <section id="Projects">
       <div style={Wrapper}>
@@ -200,9 +213,10 @@ const Projects = () => {
       </div>
     </section>
   );
+  /* #endregion */
 };
 
-//Styling
+/* #region  Styles */
 const body = {
   display: "flex",
   flex: "1",
@@ -315,4 +329,6 @@ const divider = {
 const Wrapper = {
   maxWidth: "100%",
 };
+/* #endregion */
+
 export default Radium(Projects);

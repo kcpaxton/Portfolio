@@ -5,17 +5,22 @@ import Firebase from "../Config";
 import Radium from "radium";
 
 const Contact = () => {
+  /* #region  Variables */
   // Mail reference collection
   var fireStore = Firebase.firestore();
   const mailRef = fireStore.collection("mail");
-
   const [contactFlagVisible, setVisible] = useState(false);
+  /* #endregion */
+
+  /* #region  Animation */
   const sectionFlag = useSpring({
     transform: contactFlagVisible
       ? "translate3d(0px,0,0)"
       : "translate3d(-100px,0,0)",
   });
+  /* #endregion */
 
+  /* #region  Functions */
   function handleClick(e) {
     e.preventDefault();
     var name = getInputVal("name");
@@ -45,8 +50,11 @@ const Contact = () => {
     });
   }
 
+  /* #endregion */
+
+  /* #region  Return */
   return (
-    <section id="Contact">
+    <section id="Contact Me">
       <div style={Wrapper}>
         <VizSensor
           partialVisibility
@@ -99,8 +107,10 @@ const Contact = () => {
       </div>
     </section>
   );
+  /* #endregion */
 };
 
+/* #region  Styles */
 const body = {
   display: "flex",
   flex: "1",
@@ -166,4 +176,6 @@ const Wrapper = {
   maxWidth: "100%",
   marginTop: "-30px",
 };
+/* #endregion */
+
 export default Radium(Contact);

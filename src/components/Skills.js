@@ -5,6 +5,13 @@ import Firebase from "../Config";
 import Radium from "radium";
 
 const Skills = () => {
+  /* #region  Variables */
+  const [skills, setSkills] = useState([]);
+  const [skillsFlagVisible, setVisible] = useState(false);
+  const [skillsSectionVisible, setSkillsVisible] = useState(false);
+  /* #endregion */
+
+  /* #region  Database */
   const getSkillList = useCallback((callback) => {
     const skillsArray = [];
     var i = 0;
@@ -25,10 +32,17 @@ const Skills = () => {
           });
       });
   }, []);
+  /* #endregion */
 
-  const [skills, setSkills] = useState([]);
-  const [skillsFlagVisible, setVisible] = useState(false);
-  const [skillsSectionVisible, setSkillsVisible] = useState(false);
+  /* #region  Lifecycle */
+  useEffect(() => {
+    getSkillList((response) => {
+      setSkills(response);
+    });
+  }, [getSkillList]);
+  /* #endregion */
+
+  /* #region  Animation */
   const config = { duration: 150 };
   const sectionFlag = useSpring({
     transform: skillsFlagVisible
@@ -43,11 +57,9 @@ const Skills = () => {
       x: skillsSectionVisible ? 20 : 10,
     },
   });
-  useEffect(() => {
-    getSkillList((response) => {
-      setSkills(response);
-    });
-  }, [getSkillList]);
+  /* #endregion */
+
+  /* #region  Return */
   return (
     <section id="Skills">
       <div style={Wrapper}>
@@ -81,8 +93,10 @@ const Skills = () => {
       </div>
     </section>
   );
+  /* #endregion */
 };
 
+/* #region  Styles */
 const body = {
   color: "beige",
   display: "flex",
@@ -109,4 +123,6 @@ const Wrapper = {
   marginTop: "-30px",
   overflowX: "hidden",
 };
+/* #endregion */
+
 export default Radium(Skills);

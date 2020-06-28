@@ -3,15 +3,21 @@ import { useSpring, animated } from "react-spring";
 import VizSensor from "react-visibility-sensor";
 
 const AboutMe = () => {
+  /* #region  Variables */
   const [aboutFlagVisible, setVisible] = useState(false);
+  /* #endregion */
+
+  /* #region  Animation */
   const sectionFlag = useSpring({
     transform: aboutFlagVisible
       ? "translate3d(0px,0,0)"
       : "translate3d(-100px,0,0)",
   });
+  /* #endregion */
 
+  /* #region  Return */
   return (
-    <section id="About">
+    <section id="About Me">
       <div style={Wrapper}>
         <VizSensor
           partialVisibility
@@ -41,8 +47,10 @@ const AboutMe = () => {
       </div>
     </section>
   );
+  /* #endregion */
 };
 
+/* #region  Styles */
 const body = {
   color: "beige",
   display: "flex",
@@ -59,4 +67,6 @@ const Wrapper = {
   maxWidth: "100%",
   marginTop: "3rem",
 };
+/* #endregion */
+
 export default AboutMe;

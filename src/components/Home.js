@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import Radium from "radium";
-//import resume from "/documents/Kyle_Paxton_resume.pdf";
 
 class Home extends Component {
   render() {
+    /* #region  Return */
     return (
       <div style={{ ...Wrapper, ...Body, ...FlexContainer }}>
         <div style={FlexContainer}>
@@ -43,9 +43,11 @@ class Home extends Component {
         </div>
       </div>
     );
+    /* #endregion */
   }
 }
 
+/* #region  Styles */
 const NameTitle = {
   paddingTop: "20px",
   marginBottom: "0px",
@@ -112,5 +114,6 @@ const Body = {
   color: "#fff",
   marginBottom: "10rem",
 };
+/* #endregion */
 
 export default Radium(Home);
