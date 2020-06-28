@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-scroll";
 import Radium from "radium";
-import { MdMenu } from "react-icons/md";
-import { useTrail, animated } from "react-spring";
+import { MdMenu, MdClose } from "react-icons/md";
+import { useTrail, useSpring, animated } from "react-spring";
 import logo from "../PortfolioFaviconV3.png";
 
 const NavBar = (props) => {
@@ -29,8 +29,21 @@ const NavBar = (props) => {
     x: hamburgerNavActive ? 0 : 20,
     trail: 400 / links.length,
     height: hamburgerNavActive ? 80 : 0,
-
     from: { opacity: 0, x: 20, height: 0 },
+  });
+
+  //hamburger icon flip
+  const { transform, opacity } = useSpring({
+    opacity: hamburgerNavActive ? 1 : 0,
+    transform: `perspective(600px) rotateX(${hamburgerNavActive ? 180 : 0}deg)`,
+    config: { mass: 5, tension: 500, friction: 80 },
+  });
+
+  const displayHamburgerIcon = useSpring({
+    display: hamburgerNavActive ? "none" : "block",
+  });
+  const displayCloseIcon = useSpring({
+    display: hamburgerNavActive ? "block" : "none",
   });
   /* #endregion */
 
@@ -54,14 +67,37 @@ const NavBar = (props) => {
       </div>
       <div>
         <div style={hamburger}>
-          <button
+          {/* Hamburger Icon */}
+          <div
             onClick={() => {
               handleHamburgerClick();
             }}
             style={hamburgerBtn}
           >
-            <MdMenu fontSize="3em" fill="beige" />
-          </button>
+            {/* Hamburger Icon */}
+            <animated.div
+              style={{
+                ...HamburgerIcon,
+                ...displayHamburgerIcon,
+                opacity: opacity.interpolate((o) => 1 - o),
+                transform,
+              }}
+            >
+              <MdMenu fontSize="3em" fill="beige" />
+            </animated.div>
+
+            {/* Close Icon */}
+            <animated.div
+              style={{
+                ...HamburgerIcon,
+                ...displayCloseIcon,
+                opacity,
+                transform: transform.interpolate((t) => `${t} rotateX(180deg)`),
+              }}
+            >
+              <MdClose fontSize="3em" fill="beige" />
+            </animated.div>
+          </div>
 
           <div style={hamburgerNavDiv}>
             <ul style={{ ...hamburgerListNav, marginTop: navHeight }}>
@@ -75,6 +111,7 @@ const NavBar = (props) => {
                 >
                   <animated.li style={hamLink}>
                     <Link
+                      style={{ width: "100%", textAlign: "center" }}
                       activeClass="active"
                       to={links[index]}
                       spy={true}
@@ -142,7 +179,6 @@ const navLink = {
 };
 
 const hamLink = {
-  margin: "3px 10px",
   cursor: "pointer",
   padding: "10px 0 10px",
   backgroundColor: "darkgoldenrod",
@@ -192,6 +228,10 @@ const listNav = {
   "@media (max-width: 576px)": {
     display: "none",
   },
+};
+
+const HamburgerIcon = {
+  display: "block",
 };
 /* #endregion */
 
