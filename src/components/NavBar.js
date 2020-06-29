@@ -151,6 +151,7 @@ const navbarStyle = {
   justifyContent: "space-between",
   alignItems: "center",
   overflowX: "hidden",
+  overflowY: "hidden",
 };
 
 const logoStyle = {
@@ -195,7 +196,7 @@ const hamburgerBtn = {
   border: "none",
   zIndex: "101",
   position: "relative",
-  marginRight: "1rem",
+  marginRight: "2rem",
 };
 const hamburgerNavDiv = {
   position: "absolute",
